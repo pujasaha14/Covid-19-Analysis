@@ -25,6 +25,7 @@ Tries to fetch the latest data from Our World in Data
 Falls back to a bundled dataset if live fetch fails.
 
 🚀 Deployment
+
 This project is deployed on Streamlit Cloud
 
 🛠️ Tech Stack
