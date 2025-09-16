@@ -21,7 +21,7 @@ def load_data():
         except Exception as e2:
             st.error(f"Failed to load both live and local data: {e2}")
             return pd.DataFrame()
-
+df = load_data()
 
 # Sidebar
 country = st.sidebar.selectbox("Select Country", df["location"].unique())
