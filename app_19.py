@@ -11,11 +11,17 @@ st.title("COVID-19 Data Analysis Dashboard")
 @st.cache_data
 def load_data():
     url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
-    return pd.read_csv(url, parse_dates=["date"])
-except Exception:
-        st.warning("⚠️ Live fetch failed. Using bundled local dataset.")
-        return pd.read_csv("owid-covid-data.csv", parse_dates=["date"])
-df = load_data()
+    try:
+        df = pd.read_csv(url, parse_dates=["date"])
+        return df
+    except Exception as e:
+        st.warning("⚠️ Live fetch failed. Using bundled local dataset instead.")
+        try:
+            return pd.read_csv("owid-covid-data.csv", parse_dates=["date"])
+        except Exception as e2:
+            st.error(f"Failed to load both live and local data: {e2}")
+            return pd.DataFrame()
+
 
 # Sidebar
 country = st.sidebar.selectbox("Select Country", df["location"].unique())
